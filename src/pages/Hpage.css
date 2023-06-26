@@ -1,0 +1,188 @@
+*{
+    margin: 0;
+    padding: 0;
+  }
+  *::-webkit-scrollbar{
+    display: none;
+  }
+  .searchDiv{
+    position: relative;
+    width: 100%;
+  }
+  .home{
+    width: 100%;
+    height:100%;
+    min-height: 100vh;
+    background-image: linear-gradient(#888888,black);
+    display: flex;
+    background-attachment: fixed;
+  }
+  .leftMenu{
+    position: fixed;
+    background-color: rgb(0,0,0,.6);
+    width: 360px;
+    height: 100%;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+    padding: 20px 20px;
+  }
+  .leftMenu .leftMenuHeader,.leftMenu .leftMenuFooter{
+    background-color: rgb(0,0,0,.7);
+    padding:20px 20px;
+    border-radius: 5px;
+  }
+  .leftMenu .leftMenuHeader .logo{
+    display: flex;
+    justify-content: space-between;
+    color:#abe543;
+  }
+  .leftMenu .leftMenuHeader .logo i{
+    font-size: 40px;
+  }
+  .leftMenu .leftMenuHeader .logo i:nth-of-type(2){
+    font-size: 20px;
+    padding-top: 10px;
+  }
+   .search input::placeholder{
+    color: white;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+  }
+  .search{
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    box-shadow: rgb(0,0,0,.5);
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .search input{
+    width: 100%;
+    background-color: rgb(171, 229, 67,0.7);
+    height: 30px;
+    border-radius: 20px;
+    flex:1;
+    overflow: hidden;
+    padding-right: 30px;
+    padding-left: 10px;
+  }
+  .search .searchBtn i:nth-of-type(1){
+    font-size: 20px;
+  }
+   .search .searchBtn{
+    position: relative;
+    top:3px;
+    right:30px;
+    border: none;
+    background-color: transparent;
+  }
+  .leftMenu .leftMenuFooter{
+    margin-top: 20px;
+    color:#abe543;
+    position: relative;
+  }
+  .leftMenu .leftMenuFooter .library{
+    padding-bottom: 10px;
+  }
+  .leftMenu .leftMenuFooter .library i:nth-of-type(1){
+    font-size: 20px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+   
+  }
+  .leftMenu .leftMenuFooter .library h1{
+    text-align: center;
+  }
+  .mainComponent{
+    position: relative;
+    top:0px;
+    left:400px;
+    width:1020px;
+    margin-left: 5px;
+    height: 650px;
+    background-color: rgb(0,0,0,.6);
+    padding: 20px 20px;
+    overflow: auto;
+  }
+  .mainComponent .mainContainerHeader{
+    position: relative;
+    background-color: rgb(0,0,0,.7);
+    color:#abe543;
+    padding: 20px 20px;
+    border-radius: 5px;
+  }
+  .mainComponent .mainContainerHeader .heading{
+    font-size: 50px;
+  }
+  .songsList{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr); /* Two columns with equal width */
+    grid-gap: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+  }
+  .song{
+    display: relative;
+    display: flex;
+    background-color: rgb(255,255,255,0.1);
+    margin: 5px 0px;
+  }
+  .song img{
+    width: 80px;
+  }
+  .song .songDetails{
+    width:200px;
+    float: left;
+    padding:20px 20px;
+  }
+  .songFooter{
+    width: 100%;
+    height:100px;
+    background-color: rgb(0,0,0);
+    position: fixed;
+    bottom: 0px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; 
+  }
+   .footerSongPlayed{
+    color:#abe543;
+    position: relative;
+  }
+  .footerSongPlayed .song{
+    background-color: transparent;
+  }
+  .footerSongPlayed .song img{
+    width:50px;
+    height: 50px;
+    position: relative;
+    top:20px;
+    left:20px;
+    border-radius: 5px;
+  }
+  .footerSongPlayed .song .songDetails{
+    position: relative;
+    top: 0px;
+    left: 20px;
+  }
+  .songFooter .songControls{
+    color:#abe543;
+    text-align: center;
+    position: relative;
+    top:20px;
+  }
+  .songFooter .songControls i{
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  .songFooter .songLyrics .songLyricsBtn{
+    background-color:#abe543 ;
+    padding: 10px 30px;
+    border-radius: 10px;
+    position: relative;
+    top: 30px;
+    left:130px;
+  }

@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000;
 //connect
 const path=require("path");
 app.use(express.static(path.join(__dirname,'./build')))
-
 //refresh
 const pageRefresh=(request,response,next)=>{
   response.sendFile(path.join(__dirname,'./build/index.html'))

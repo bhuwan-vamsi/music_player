@@ -4,6 +4,16 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+//connect
+const path=require("path");
+app.use(express.static(path.join(__dirname,'./build')))
+
+//refresh
+const pageRefresh=(request,response,next)=>{
+  response.sendFile(path.join(__dirname,'./build/index.html'))
+}
+app.use("/*",pageRefresh);
+
 mongoose.connect('mongodb://127.0.0.1:27017/musicdetails', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -60,6 +70,19 @@ app.post('/login', async (req, res) => {
     res.status(200).json({ message: 'OK' });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+app.get('/home', async (req, res) => {
+  try {
+    const database = mongoose.connection;
+    const songsCollection = database.collection('songdetails');
+
+    const songs = await songsCollection.find().toArray();
+    res.json(songs);
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

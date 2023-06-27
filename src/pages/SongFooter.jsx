@@ -6,7 +6,6 @@ function SongFooter() {
   return (
     <div className='songFooter'>
         <div className="footerSongPlayed">
-            <Song/>
         </div>
         <div className="songControls">
             <i><BsFillCaretLeftFill/></i>

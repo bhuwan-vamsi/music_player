@@ -1,0 +1,31 @@
+/* Song.css */
+.songCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+}
+
+.songImage {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.songDetails {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.songTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.songArtist {
+  font-size: 14px;
+}

@@ -11,7 +11,14 @@ app.use(express.static(path.join(__dirname,'./build')))
 const pageRefresh=(request,response,next)=>{
   response.sendFile(path.join(__dirname,'./build/index.html'))
 }
-app.use("/*",pageRefresh);
+
+app.use((req, res, next) => {
+  if (req.originalUrl === '/home') {
+    next();
+  } else {
+    pageRefresh(req, res, next);
+  }
+});
 
 mongoose.connect('mongodb://127.0.0.1:27017/musicdetails', {
   useNewUrlParser: true,
@@ -78,6 +85,7 @@ app.get('/home', async (req, res) => {
     const songsCollection = database.collection('songdetails');
 
     const songs = await songsCollection.find().toArray();
+    console.log(songs);
     res.json(songs);
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);

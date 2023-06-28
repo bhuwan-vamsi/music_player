@@ -15,13 +15,15 @@ function MainComponent() {
   }, []);
 
   let time = new Date().getHours();
-  let headingString = "";
-  if (time < 12) {
+  var headingString = "";
+  if (time >= 4 && time <= 11) {
     headingString = "Good Morning!";
   } else if (time >= 12 && time <= 17) {
     headingString = "Good Afternoon!";
-  } else {
+  } else if (time >= 18 && time <= 21) {
     headingString = "Good Evening!";
+  } else {
+    headingString = "Hello! Night Listeners!";
   }
 
   return (
@@ -30,8 +32,7 @@ function MainComponent() {
         <h1 className="heading">{headingString}</h1>
         <div className="songsList">
           {songs.map(song => (
-            <Song
-              key={song.id}
+            <Song 
               title={song.title}
               artist={song.artist}
               imageUrl={song.imageUrl}

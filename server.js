@@ -11,6 +11,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/musicdetails', {
   useUnifiedTopology: true,
 });
 
+//userSchema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -65,52 +66,7 @@ app.post('/signin', async (req, res) => {
   }
 });
 
-/*app.get('/home', async (req, res) => {
-  try {
-    const database = mongoose.connection;
-    const songsCollection = database.collection('songdetails');
-
-    const songs = await songsCollection.find().toArray();
-    res.json(songs);
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-app.get('/home/:songId', async (req, res) => {
-  const songId = new mongoose.Types.ObjectId(req.params.songId);
-  console.log(songId);
-  try {
-    const collection = mongoose.connection.db.collection('fs.files');
-    collection.findOne({ _id: songId }, function (err, song) {
-      console.log('finding song', song);
-      if (err) {
-        console.error('Error retrieving songs:', err);
-        res.status(500).send('Error retrieving songs');
-      } else if (!song) {
-        console.error('Song not found');
-        res.status(404).send('Song not found');
-      } else {
-        console.log('else case');
-        const gfs = Grid(mongoose.connection.db, mongoose.mongo);
-        const readStream = gfs.createReadStream({
-          _id: song._id,
-          root: 'fs',
-        });
-        res.set('Content-Type', 'audio/mpeg');
-        res.set('Content-Disposition', `attachment; filename="${song.filename}"`);
-        console.log(song.filename);
-        console.log('File send successfully');
-        readStream.pipe(res);
-      }
-    });
-  } catch (error) {
-    console.error('Failed to connect to MongoDB:', error);
-    res.status(500).send('Failed to connect to MongoDB');
-  }
-});
-
+/*
 // Serve static files
 app.use(express.static(path.join(__dirname, './build')));
 
@@ -125,7 +81,8 @@ app.use((req, res, next) => {
   } else {
     pageRefresh(req, res, next);
   }
-});*/
+});
+*/
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

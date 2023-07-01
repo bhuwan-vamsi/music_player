@@ -40,7 +40,6 @@ function LRpage(){
           email,
           password
         };
-        console.log(userData);
         fetch('/signin', {
           method: 'POST',
           headers: {

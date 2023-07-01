@@ -16,13 +16,14 @@ function Footer() {
     const [duration, setDuration] = useState(0);
     const [currTime, setCurrTime] = useState(0);
 
-    const handleButton = (type, val) => {
-        switch (type) {
+
+    const handleButton = (val) => {
+        switch (val.target.id) {
             case "prevSong":
                 setPrevClicked(val);
                 break;
             case "play-pause":
-                setPlayPauseClicked(val);
+                setPlayPauseClicked(!isPlaying);
                 break;
             case "nextSong":
                 setNextClicked(val);
@@ -69,7 +70,7 @@ function Footer() {
         <div className="songFooter">
             <div className="footerSongPlayed">
                 <div className="song">
-                    <img src="" alt="" />
+                    <img src={`../images/${img}`} alt="" />
                     <div className="songDetails">
                         <h2 className="songTitle">{name}</h2>
                         <p className="songArtist">{artist}</p>
@@ -80,41 +81,25 @@ function Footer() {
 
                 <audio ref={audioElement} src={require(`../songs/${filename}`)} preload={"metadata"}/>
 
-                <button id="backwardButton" type={"prevSong"} onClick={handleButton}>
+                <button id="backwardButton" onClick={handleButton}>
                     <i>
-                        <BsFillCaretLeftFill />
+                        <BsFillCaretLeftFill id={"prevSong"} />
                     </i>
                 </button>
 
-                <button id="masterButton" type={"play-pause"} onClick={handleButton}>
+                <button id="masterButton" onClick={handleButton}>
                     <i>
-                        <BsFillPauseFill />
+                        <BsFillPauseFill id={"play-pause"}/>
                     </i>
                 </button>
-                <button id="forwardButton" type={"nextSong"} onClick={handleButton}>
+                <button id="forwardButton" onClick={handleButton}>
                     <i>
-                        <BsFillCaretRightFill />
+                        <BsFillCaretRightFill id={"nextSong"}/>
                     </i>
                 </button>
             </div>
             <div className="songLyrics">
                 <button className="songLyricsBtn">Lyrics</button>
-            </div>
-            <div className="playback-widgets">
-                <div className="timer">
-                    <p>
-                        <span>{formatTime(currTime)}</span>
-                        /
-                        <span>{formatTime(duration)}</span>
-                    </p>
-                </div>
-                <div className={"slider"}>
-                    <Slider style={{color: useStyle.theme}} value={volume} onChange={handleVolumeChange}/>
-                </div>
-                <ControlsToggleButton style={pointer} type={"volume"}
-                                      defaultIcon={<VolumeUpIcon/>}
-                                      changeIcon={<VolumeOffIcon/>}
-                                      onClicked={handleToggle}/>
             </div>
         </div>
     );

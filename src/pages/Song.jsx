@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Footer from './Footer.jsx';
+import Footer from './footer';
 
 function Song({ value, title, artist, imageUrl }) {
   const [showFooter, setShowFooter] = useState(false);

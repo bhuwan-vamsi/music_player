@@ -1,7 +1,7 @@
 import {React} from 'react';
 import LeftMenu from './LeftMenu';
 import MainComponent from './MainComponent';
-import Footer from './footer';
+import Footer from './Footer';
 import '../css/Hpage.css';
 
 function Hpage() {
@@ -10,7 +10,6 @@ function Hpage() {
     <div className='home'>
       <LeftMenu/>
       <MainComponent/>
-      <Footer/>
     </div>
   );
 }

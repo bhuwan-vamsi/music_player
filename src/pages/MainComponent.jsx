@@ -1,8 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import Song from './Song';
-
+import {music} from '../music.js'
 function MainComponent() {
-
   let time = new Date().getHours();
   var headingString = "";
   if (time >= 4 && time <= 11) {
@@ -19,8 +18,15 @@ function MainComponent() {
     <div className="mainComponent">
       <div className="mainContainerHeader">
         <h1 className="heading">{headingString}</h1>
+        <div className="songsList">
+        { music.map((song)=>{
+          return <Song key={song.id} title={song.name} artist={song.artist} url={song.img} value={song.id} file={song.filename}/>
+         } )}
+         </div>
       </div>
-      <div className="mainContainerFooter"></div>
+      <div className="mainContainerFooter">
+       
+      </div>
     </div>
   );
 }

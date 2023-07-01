@@ -4,7 +4,7 @@ import LRpage from './LRpage';
 import Hpage from './Hpage';
 import SoulKey from './SoulKey';
 import Error from './Error';
-import Footer from './footer';
+import Footer from './Footer';
 function App() {
   return (
     <div>

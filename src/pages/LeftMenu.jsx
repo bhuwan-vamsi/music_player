@@ -11,7 +11,7 @@ function LeftMenu() {
             <div className='leftMenuHeader'>
                 <div className='logo'>
                     <i><RiNeteaseCloudMusicLine/></i>
-                    <h1>Music Player</h1>
+                    <h1>SoulKey</h1>
                     <i><FaEllipsisH/></i>
                 </div>
                 <div className="searchDiv">

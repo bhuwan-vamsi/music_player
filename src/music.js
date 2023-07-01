@@ -277,4 +277,4 @@ let music = [
 
 ];
 
-export default music;
+export {music};

@@ -2,9 +2,14 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import { BsFillCaretLeftFill, BsFillPauseFill, BsFillCaretRightFill } from 'react-icons/bs';
 
-function Footer() {
+function Footer({ value, title, artist, url ,file}) {
 
-    const [{id, name, artist, filename}, setCurrTrack] = useState({id:0, name:"Ae Dil Hai Mushkil", artist:"Arijit Singh", filename:"Ae Dil Hai Mushkil.mp3"});
+    const [{ id, name, artist_name, filename }, setCurrTrack] = useState({
+        id: value,
+        name: title,
+        artist_name: artist,
+        filename: file,
+      });
     const [isPrevClicked, setPrevClicked] = useState(false);
     const [isNextClicked, setNextClicked] = useState(false);
     const [isPlaying, setPlayPauseClicked] = useState(false);
@@ -70,10 +75,10 @@ function Footer() {
         <div className="songFooter">
             <div className="footerSongPlayed">
                 <div className="song">
-                    <img src={`../images/${img}`} alt="" />
+                    <img src={url} alt="" />
                     <div className="songDetails">
                         <h2 className="songTitle">{name}</h2>
-                        <p className="songArtist">{artist}</p>
+                        <p className="songArtist">{artist_name}</p>
                     </div>
                 </div>
             </div>

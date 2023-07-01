@@ -1,0 +1,52 @@
+*{
+    margin:0;
+    padding:0;
+}
+.soulKey{
+    background-image: url('https://images.unsplash.com/photo-1614149162883-504ce4d13909?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-style: italic;
+    height: 100vh;
+}
+.navbar-brand ,.btn{
+    text-decoration: none;
+}
+.navbar-brand{
+    color: white;
+    font-size: 50px;
+    padding: 20px;
+}
+.main-row{
+    display: flex;
+}
+.main-row-text{
+    position: relative;
+    left: 1020px;
+    top: 200px;
+    text-align: center;
+    background-color: rgb(255,255,255,0.4);
+    margin-top: 250px;
+    padding: 20px;
+    border-radius: 5px;
+    height: 200px;
+}
+.main-row-text h1{
+    font-size: 45px;
+    margin-bottom: 10px;
+    
+}
+.main-row-text p{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.main-row-text .btn{
+    font-size: 30px;
+    color: white;
+    background-color: rgb(0,0,0,0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.main-row-text .btn:hover{
+    background-color: rgb(0,0,0);
+}

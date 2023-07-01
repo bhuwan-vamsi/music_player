@@ -1,12 +1,12 @@
 import React,{useState} from "react";
-import "./LRpage.css";
-import { useNavigate } from 'react-router-dom';
-
+import "../css/LRpage.css";
+import { useNavigate } from "react-router-dom";
 function LRpage(){
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
     const navigate = useNavigate();
     
     //Posting a request to the server
@@ -40,7 +40,8 @@ function LRpage(){
           email,
           password
         };
-        fetch('/login', {
+        console.log(userData);
+        fetch('/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -78,7 +79,7 @@ function LRpage(){
                         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
                         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <button type="submit">Sign Up</button>
+                            <button type="submit" className="signUp">Sign Up</button>
                     </form>
                 </div>
                 <div className="form-container sign-in-container">
@@ -87,7 +88,7 @@ function LRpage(){
                         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <a href="#">Forgot your password?</a>
-                        <button type="submit">Sign In</button>
+                            <button type="submit" className="signIn">Sign In</button>
                     </form>
                 </div>
                 <div className="overlay-container">

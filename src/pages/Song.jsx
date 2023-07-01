@@ -1,14 +1,23 @@
-import React from 'react';
-import './Song.css';
+import React, { useState } from 'react';
+import Footer from './Footer.jsx';
 
-function Song({ title, artist, imageUrl }) {
+function Song({ value, title, artist, imageUrl }) {
+  const [showFooter, setShowFooter] = useState(false);
+
+  function handleSongClick() {
+    setShowFooter(true);
+  }
+
   return (
-    <div className="songCard">
-      <img className="songImage" src={imageUrl} alt="" />
+    <div className="song" onClick={handleSongClick}>
+      <img src={imageUrl} alt="" />
       <div className="songDetails">
         <h2 className="songTitle">{title}</h2>
         <p className="songArtist">{artist}</p>
       </div>
+      {showFooter && (
+        <Footer/>
+      )}
     </div>
   );
 }

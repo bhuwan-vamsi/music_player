@@ -1,17 +1,17 @@
-import React from 'react';
+import {React} from 'react';
 import LeftMenu from './LeftMenu';
 import MainComponent from './MainComponent';
-import SongFooter from './SongFooter';
-import './Hpage.css';
+import Footer from './Footer';
+import '../css/Hpage.css';
 
 function Hpage() {
+
   return (
-    <div>
+    <div className='home'>
       <LeftMenu/>
-      <MainComponent/>
-      <SongFooter/>
+      <Footer/>
     </div>
-  )
+  );
 }
 
-export default Hpage
+export default Hpage;

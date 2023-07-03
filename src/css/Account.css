@@ -1,0 +1,64 @@
+.sideMenu {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+  
+  .sideMenu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sideMenu li {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+  }
+  
+  .sideMenu li:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .mainContent {
+    margin-left: 220px;
+    padding: 10px;
+  }
+  
+  .mainContent h1 {
+    margin-bottom: 10px;
+  }
+  
+  .editProfileForm,
+  .changePasswordForm {
+    width: 300px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .editProfileForm label,
+  .changePasswordForm label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .editProfileForm input,
+  .changePasswordForm input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .editProfileForm button,
+  .changePasswordForm button {
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

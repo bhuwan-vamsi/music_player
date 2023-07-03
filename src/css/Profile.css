@@ -1,0 +1,46 @@
+.profilePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f1f1f1;
+}
+  
+.profileContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+  
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+  
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+  
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+  
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+  
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+  
+ul li {
+    margin-bottom: 5px;
+}
+  

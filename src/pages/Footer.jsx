@@ -4,10 +4,11 @@ import { BsFillCaretLeftFill, BsFillPauseFill, BsFillCaretRightFill } from 'reac
 
 function Footer({ value, title, artist, url ,file}) {
 
-    const [{ id, name, artist_name, filename }, setCurrTrack] = useState({
+    const [{ id, name, artist_name, img, filename }, setCurrTrack] = useState({
         id: value,
         name: title,
         artist_name: artist,
+        imageUrl: url,
         filename: file,
       });
     const [isPrevClicked, setPrevClicked] = useState(false);
@@ -75,7 +76,7 @@ function Footer({ value, title, artist, url ,file}) {
         <div className="songFooter">
             <div className="footerSongPlayed">
                 <div className="song">
-                    <img src={url} alt="" />
+                    <img src={require(`../images/${url}`)} alt="" />
                     <div className="songDetails">
                         <h2 className="songTitle">{name}</h2>
                         <p className="songArtist">{artist_name}</p>

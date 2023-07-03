@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Footer from './Footer';
 
 function Song({ value, title, artist, url,file }) {
+
   const [showFooter, setShowFooter] = useState(false);
 
   function handleSongClick() {
     setShowFooter(true);
   }
 
-  
   return (
     <div className="song" onClick={handleSongClick}>
       <img src={require(`../images/${url}`)} alt="" />
@@ -24,7 +24,3 @@ function Song({ value, title, artist, url,file }) {
 }
 
 export default Song;
-/*
-
-
-*/ 

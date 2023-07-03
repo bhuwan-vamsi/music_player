@@ -4,14 +4,14 @@ import '../css/Account.css';
 function Account() {
 
     const user = {
-        name: 'Anya',
-        nickname: 'Peaches',
-        email: 'anya@gmail.com',
-        bio: 'I am a very cute girl',
+        name: 'George Smith',
+        nickname: 'Kitty',
+        email: 'george@gmail.com',
+        bio: 'I am a Good Boy',
         avatarUrl: 'https://w0.peakpx.com/wallpaper/632/1014/HD-wallpaper-anime-spy-x-family-anya-forger.jpg',
-        password: 'iamhorny',
-        DOB: '23-05-2004',
-        gender: 'Female',
+        password: 'goodboy',
+        DOB: '16-10-2000',
+        gender: 'Transgender',
     };
 
     const [showChangePassword, setShowChangePassword] = useState(false);

@@ -78,63 +78,117 @@
   border: none;
   background-color: transparent;
 }
-.leftMenu .leftMenuFooter{
+.leftMenu .leftMenuFooter {
   margin-top: 20px;
-  color:#abe543;
+  color: #abe543;
+}
+.leftMenu{
+  position: absolute;
+}
+.leftMenuFooter{
   position: relative;
 }
-.leftMenu .leftMenuFooter .library{
+.leftMenu .leftMenuFooter .library {
   padding-bottom: 10px;
+  display: flex; /* Added flex display */
+  align-items: center; /* Align items vertically in the center */
 }
-.leftMenu .leftMenuFooter .library i:nth-of-type(1){
-  font-size: 20px;
-  position: absolute;
-  top: 30px;
-  left: 40px;
 
+.leftMenu .leftMenuFooter .library i:nth-of-type(1) {
+  font-size: 20px;
+  margin-right: 10px; /* Added margin-right for spacing */
 }
-.leftMenu .leftMenuFooter .library h1{
+
+.leftMenu .leftMenuFooter .library h1 {
   text-align: center;
+  margin: 0; /* Remove default margin for h1 */
+}
+.leftMenuFooter.LikedSongs{
+  overflow: auto;
 }
 .mainComponent{
-  position: relative;
+  position: absolute;
   top: 0px;
-  right: 0px;
+  right:0px;
+  left: 300px;
   margin-left: 2px;
-  height: 100vh;
+  height: 90vh;
   background-color: rgb(0,0,0,.6);
   padding: 20px 20px;
   overflow: auto;
 }
-.mainComponent .mainContainerHeader{
+.mainComponent .mainContainerHeader {
   position: relative;
-  background-color: rgb(0,0,0,.7);
-  color:#abe543;
+  background-color: rgb(0, 0, 0, .7);
+  color: #abe543;
   padding: 20px 20px;
   border-radius: 5px;
 }
-.mainComponent .mainContainerHeader .heading{
+
+.mainComponent .mainContainerHeader .heading {
   font-size: 50px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
 }
+
+.mainComponent .mainContainerHeader .profileHeading {
+  font-size: 30px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /* display: ${isDropdownOpen ? 'block' : 'none'};
+  z-index: 1; */
+}
+
+.dropdownMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdownMenu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdownMenu li:hover {
+  background-color: #f0f0f0;
+}
+
+
 .songsList{
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr); /* Two columns with equal width */
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  margin-top: 20px;
+  margin-top: 70px;
   overflow: hidden;
 }
 .song{
-  display: relative;
   display: flex;
   background-color: rgb(255,255,255,0.1);
   margin: 5px 0px;
+  height: 115px;
+  cursor: pointer;
 }
 .song img{
   width: 100px;
+  height: 115px;
 }
 .song .songDetails{
-  width:200px;
+  width:250px;
   float: left;
   padding:20px 20px;
 }
@@ -185,15 +239,4 @@
   position: relative;
   top: 30px;
   left:130px;
-}
-/*.songFooter .plaback-widgets .timer*/
-.progressbar {
-  width: 100%;
-  height: 10px;
-  background-color: #ccc;
-}
-
-.progress {
-  height: 100%;
-  background-color: #ff0000;
 }

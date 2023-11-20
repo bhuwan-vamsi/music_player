@@ -11,7 +11,7 @@ function Account() {
         avatarUrl: 'https://w0.peakpx.com/wallpaper/632/1014/HD-wallpaper-anime-spy-x-family-anya-forger.jpg',
         password: 'goodboy',
         DOB: '16-10-2000',
-        gender: 'Transgender',
+        gender: 'Male',
     };
 
     const [showChangePassword, setShowChangePassword] = useState(false);
@@ -40,9 +40,9 @@ function Account() {
 
     const handlePassChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'oldPassword') {
+        if (name === oldPassword) {
             setOldPassword(value);
-        } else if (name === 'newPassword') {
+        } else if (name === newPassword) {
           setNewPassword(value);
         } else {
           setConfirmPassword(value);

@@ -1,114 +1,79 @@
-//import statements
-import React, {useContext, useEffect, useRef, useState} from "react";
-import { BsFillCaretLeftFill, BsFillPauseFill, BsFillCaretRightFill } from 'react-icons/bs';
+import React, { useEffect, useRef, useState } from "react";
+import { BsFillPauseFill } from 'react-icons/bs';
 
-function Footer({ value, title, artist, url ,file}) {
+function Footer({ value, title, artist, url, file }) {
+  const [currTrack, setCurrTrack] = useState({
+    id: value,
+    name: title,
+    artist_name: artist,
+    imageUrl: url,
+    filename: file,
+  });
+const [isPlaying, setPlayPauseClicked] = useState(false);
 
-    const [{ id, name, artist_name, img, filename }, setCurrTrack] = useState({
-        id: value,
-        name: title,
-        artist_name: artist,
-        imageUrl: url,
-        filename: file,
-      });
-    const [isPrevClicked, setPrevClicked] = useState(false);
-    const [isNextClicked, setNextClicked] = useState(false);
-    const [isPlaying, setPlayPauseClicked] = useState(false);
+  const audioElement = useRef();
+  const [currTime, setCurrTime] = useState(0);
 
-    const audioElement = useRef();
-    const [isVolumeClicked, setVolumeClicked] = useState(false);
-    const [volume, setVolume] = useState(50);
-    const [seekTime, setSeekTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-    const [currTime, setCurrTime] = useState(0);
-
-
-    const handleButton = (val) => {
-        switch (val.target.id) {
-            case "prevSong":
-                setPrevClicked(val);
-                break;
-            case "play-pause":
-                setPlayPauseClicked(!isPlaying);
-                break;
-            case "nextSong":
-                setNextClicked(val);
-                break;
-            default:
-                break;
-        }
+  const handlePlayPause = () => {
+    if (audioElement.current) {
+      setPlayPauseClicked(!isPlaying);
     }
+  };
 
+  useEffect(() => {
+    // Update internal state when the 'value' prop changes
+    setCurrTrack((prevTrack) => ({
+      ...prevTrack,
+      id: value,
+      name: title,
+      artist_name: artist,
+      imageUrl: url,
+      filename: file,
+    }));
+  }, [value, title, artist, url, file]);
 
-    const handleVolumeChange = (event, newValue) => {
-        setVolume(newValue);
-    };
+  useEffect(() => {
+    if (audioElement.current) {
+      // Set the source when the currTrack changes
+      audioElement.current.src = require(`../songs/${currTrack.filename}`);
+      // Load and play the audio
+      isPlaying ? audioElement.current.play() : audioElement.current.pause();
+    }
+  }, [currTrack, isPlaying]);
 
+  useEffect(() => {
+    if (audioElement.current) {
+      setCurrTime(audioElement.current.currentTime);
+    }
+  }, [currTime]);
 
-    useEffect(() => {
-        isPlaying
-            ? audioElement.current.play().then(()=>{}).catch((e)=>{audioElement.current.pause(); audioElement.current.currentTime=0;})
-            : audioElement.current.pause();
-        audioElement.current.volume = volume / 100;
-        audioElement.current.onloadeddata = () => {
-            if (audioElement.current != null)
-                setDuration(audioElement.current.duration)
-        };
-        setInterval(() => {
-            if (audioElement.current !== null)
-                setCurrTime(audioElement.current.currentTime);
-        })
-    });
-
-
-    useEffect(() => {
-        setSeekTime((currTime) / (duration / 100))
-    }, [currTime, duration]);
-
-
-    useEffect(()=>{
-        audioElement.current.onended = ()=> {
-            setNextClicked(true);
-        };
-    })
-
-    return (
-        <div className="songFooter">
-            <div className="footerSongPlayed">
-                <div className="song">
-                    <img src={require(`../images/${url}`)} alt="" />
-                    <div className="songDetails">
-                        <h2 className="songTitle">{name}</h2>
-                        <p className="songArtist">{artist_name}</p>
-                    </div>
-                </div>
-            </div>
-            <div className="songControls">
-
-                <audio ref={audioElement} src={require(`../songs/${filename}`)} preload={"metadata"}/>
-
-                <button id="backwardButton" onClick={handleButton}>
-                    <i>
-                        <BsFillCaretLeftFill id={"prevSong"} />
-                    </i>
-                </button>
-
-                <button id="masterButton" onClick={handleButton}>
-                    <i>
-                        <BsFillPauseFill id={"play-pause"}/>
-                    </i>
-                </button>
-                <button id="forwardButton" onClick={handleButton}>
-                    <i>
-                        <BsFillCaretRightFill id={"nextSong"}/>
-                    </i>
-                </button>
-            </div>
-            <div className="songLyrics">
-                <button className="songLyricsBtn">Lyrics</button>
-            </div>
+  return (
+    <div className="songFooter">
+      <div className="footerSongPlayed">
+        <div className="song">
+          <img src={require(`../images/${currTrack.imageUrl}`)} alt="" />
+          <div className="songDetails">
+            <h2 className="songTitle">{currTrack.name}</h2>
+            <p className="songArtist">{currTrack.artist_name}</p>
+          </div>
         </div>
-    );
+      </div>
+      <div className="songControls">
+        {/* <button id="masterButton" onClick={handlePlayPause}>
+          <i>
+            <BsFillPauseFill id={"play-pause"} />
+          </i>
+        </button> */}
+        <audio ref={audioElement} controls>
+          <source src={require(`../songs/${currTrack.filename}`)} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <div className="songLyrics">
+        <button className="songLyricsBtn">Lyrics</button>
+      </div>
+    </div>
+  );
 }
 
 export default Footer;

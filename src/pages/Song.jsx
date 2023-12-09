@@ -7,7 +7,6 @@ function Song({ value, title, artist, url,liked, onPlay }) {
   useEffect(() => {
     // Update the isLiked state when the liked prop changes
     setIsLiked(liked);
-    //console.log(liked);
   }, [liked]);
 
   async function handleLikeClick() {
@@ -15,7 +14,6 @@ function Song({ value, title, artist, url,liked, onPlay }) {
     const userId = localStorage.getItem('email');
     const songId = value;
     const newLikeStatus = !isLiked;
-    //console.log(newLikeStatus);
     setIsLiked(newLikeStatus);
 
 
@@ -34,16 +32,6 @@ function Song({ value, title, artist, url,liked, onPlay }) {
 
       if (!response.ok) {
         console.error('Failed to update like status on the server');
-      // } else {
-      //   if (newLikeStatus) {
-      //     setShowPrompt('Added to Liked Songs!');
-      //   } else {
-      //     setShowPrompt('Removed from Liked Songs!');
-      //   }
-
-      //   setTimeout(() => {
-      //     setShowPrompt(null);
-      //   }, 500);
        }
     } catch (error) {
       console.error('Error:', error);
@@ -68,7 +56,6 @@ function Song({ value, title, artist, url,liked, onPlay }) {
         >
           &#10084;
         </span>
-        {showPrompt && <p style={{ color: 'green', fontSize: '12px' }}>Added to Liked Songs!</p>}
       </div>
     </div>
   );

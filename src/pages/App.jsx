@@ -6,6 +6,8 @@ import SoulKey from './SoulKey';
 import Error from './Error';
 import Profile from './Profile';
 import Account from './Account';
+import Forgotpassword from './Forgotpassword';
+import Resetpassword from './Resetpassword';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/error" element = { <Error/> } />
         <Route path="/profile" element = {<Profile/>} />
         <Route path="/account" element = {<Account/>} />
+        <Route path="/forgotpassword" element = {<Forgotpassword/>} />
+        <Route path="/reset-password/:token" element = {<Resetpassword/>} />
       </Routes>
     </div>
   )

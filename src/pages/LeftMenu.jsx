@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { RiNeteaseCloudMusicLine } from 'react-icons/ri';
 import { FaEllipsisH } from 'react-icons/fa';
 import { BsMusicNoteList } from 'react-icons/bs';
@@ -7,6 +7,7 @@ import '../css/Hpage.css';
 import { music } from '../music.js';
 
 function LeftMenu({ songs, onLikedSongsUpdate }) {
+
   const getSongNamesFromIds = (songIds) => {
     return songIds.map((songId) => {
       const foundSong = music.find((song) => song.id === songId);
@@ -34,9 +35,6 @@ function LeftMenu({ songs, onLikedSongsUpdate }) {
             <FaEllipsisH />
           </i>
         </div>
-        <div className="searchDiv">
-          <Search />
-        </div>
       </div>
       <div className="leftMenuFooter">
         <div className="library">
@@ -45,16 +43,18 @@ function LeftMenu({ songs, onLikedSongsUpdate }) {
           </i>
           <h1>Your Library</h1>
         </div>
-        <div className="searchDiv">
-          <Search />
-        </div>
         <div className='LikedSongs'>
+          <h3>Liked Songs : </h3>
             <ul>
               {likedSongNames.map((songName, index) => (
                 <li key={index}>{songName}</li>
               ))}
             </ul>
-          </div>
+        </div>
+        <div className="playlists">
+          <h4>Playlists :</h4>
+
+        </div>
       </div>
     </div>
   );

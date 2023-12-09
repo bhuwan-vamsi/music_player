@@ -1,5 +1,4 @@
 import React from 'react';
-import LeftMenu from './LeftMenu';
 import MainComponent from './MainComponent';
 import '../css/Hpage.css';
 

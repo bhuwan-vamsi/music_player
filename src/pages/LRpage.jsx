@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/LRpage.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LRpage() {
   const [name, setName] = useState('');
@@ -91,7 +92,7 @@ function LRpage() {
             <h1>Sign In</h1>
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <a href="#">Forgot your password?</a>
+            <Link to="/forgotpassword">Forgot your password?</Link>
             <button type="submit" className="signIn">Sign In</button>
           </form>
         </div>

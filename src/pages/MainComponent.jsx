@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Song from './Song';
 import Footer from './Footer';
 import { music } from '../music.js';
 import { useNavigate } from 'react-router-dom';
 import '../css/Hpage.css';
 import LeftMenu from './LeftMenu.jsx';
+import Search from './Search';
 
 function MainComponent() {
   const navigate = useNavigate();
@@ -93,6 +94,10 @@ function MainComponent() {
     }
   }
 
+  const handleSearchResultClick = (clickedSong) => {
+    setCurrentlyPlaying(clickedSong);
+  };
+
   return (
     <div>
       <LeftMenu songs={songs} onLikedSongsUpdate={fetchLikedSongs} />
@@ -111,6 +116,9 @@ function MainComponent() {
               </ul>
             </div>
           )}
+          <div className="searchcomponent">
+            <Search onResultClick={handleSearchResultClick} /> {/* Add the Search component here */}
+          </div>
           <div className="songsList">
             {music.map((song) => (
               <Song

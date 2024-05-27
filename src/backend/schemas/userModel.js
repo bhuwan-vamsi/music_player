@@ -16,6 +16,22 @@ const userSchema = new mongoose.Schema({
       unique: false,
       required: true,
     },
+    nickname: {
+      type: String,
+      required: false,
+    },
+    bio: {
+      type: String,
+      required: false,
+    },
+    dob: {
+      type: String,
+      required: false,
+    },
+    gender: {
+      type: String,
+      required: false,
+    },
 });
 
 const User = mongoose.model('User', userSchema);

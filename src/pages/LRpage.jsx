@@ -22,6 +22,7 @@ function LRpage() {
 
       if (response.ok) {
         alert('User registered successfully');
+        localStorage.setItem('name', userData.name);
         localStorage.setItem('email', userData.email);
         navigate('/home');
       } else {
@@ -44,7 +45,9 @@ function LRpage() {
       });
 
       if (response.ok) {
+        const responseData = await response.json();
         navigate('/home');
+        localStorage.setItem('name', responseData.userdata.name);
         localStorage.setItem('email', userData.email);
       } else {
         alert('Signin failed');

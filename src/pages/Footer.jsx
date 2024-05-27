@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BsFillPauseFill } from 'react-icons/bs';
+import { BsStar } from 'react-icons/bs';
+import LyricsPopUp from "./Lyrics";
 
 function Footer({ value, title, artist, url, file }) {
   const [currTrack, setCurrTrack] = useState({
@@ -9,19 +10,79 @@ function Footer({ value, title, artist, url, file }) {
     imageUrl: url,
     filename: file,
   });
-const [isPlaying, setPlayPauseClicked] = useState(false);
 
   const audioElement = useRef();
-  const [currTime, setCurrTime] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [lyrics, setLyrics] = useState('');
+  const [showLyricsPopup, setShowLyricsPopup] = useState(false);
 
-  const handlePlayPause = () => {
-    if (audioElement.current) {
-      setPlayPauseClicked(!isPlaying);
-    }
+  const handleRatingClick = (ratedValue) => {
+    setRating(ratedValue);
+
+    const userEmail = localStorage.getItem('email');
+    const songId = currTrack.id;
+
+    fetch('http://localhost:5000/rate-song', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userEmail,
+        songId,
+        rating: ratedValue,
+      }),
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error));
+  };
+
+  const handleFetchLyrics = () => {
+    const songId = currTrack.id;
+
+    fetch('http://localhost:5000/get-song-lyrics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        songId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setLyrics(data.songDetails.lyrics || 'Lyrics not available');
+        setShowLyricsPopup(true);
+      })
+      .catch(error => console.error('Error fetching song lyrics:', error));
+  };
+
+  const handleCloseLyricsPopup = () => {
+    setShowLyricsPopup(false);
   };
 
   useEffect(() => {
-    // Update internal state when the 'value' prop changes
+    const userEmail = localStorage.getItem('email');
+    const songId = currTrack.id;
+
+    fetch('http://localhost:5000/get-song-rating', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userEmail,
+        songId,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setRating(data.rating || 0);
+      })
+      .catch(error => console.error('Error fetching song rating:', error));
+  }, [currTrack.id]);
+
+  useEffect(() => {
     setCurrTrack((prevTrack) => ({
       ...prevTrack,
       id: value,
@@ -31,21 +92,6 @@ const [isPlaying, setPlayPauseClicked] = useState(false);
       filename: file,
     }));
   }, [value, title, artist, url, file]);
-
-  useEffect(() => {
-    if (audioElement.current) {
-      // Set the source when the currTrack changes
-      audioElement.current.src = require(`../songs/${currTrack.filename}`);
-      // Load and play the audio
-      isPlaying ? audioElement.current.play() : audioElement.current.pause();
-    }
-  }, [currTrack, isPlaying]);
-
-  useEffect(() => {
-    if (audioElement.current) {
-      setCurrTime(audioElement.current.currentTime);
-    }
-  }, [currTime]);
 
   return (
     <div className="songFooter">
@@ -59,21 +105,29 @@ const [isPlaying, setPlayPauseClicked] = useState(false);
         </div>
       </div>
       <div className="songControls">
-        {/* <button id="masterButton" onClick={handlePlayPause}>
-          <i>
-            <BsFillPauseFill id={"play-pause"} />
-          </i>
-        </button> */}
         <audio ref={audioElement} controls>
           <source src={require(`../songs/${currTrack.filename}`)} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
-      <div className="songLyrics">
-        <button className="songLyricsBtn">Lyrics</button>
+      <div className="rightPart">
+        <div className="songRating">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <BsStar
+              key={star}
+              style={{ color: star <= rating ? 'yellow' : 'white'}}
+              onClick={() => handleRatingClick(star)}
+            />
+          ))}
+        </div>
+        <div className="songLyrics">
+          <button className="songLyricsBtn" onClick={handleFetchLyrics}>Lyrics</button>
+          {showLyricsPopup && <LyricsPopUp lyrics={lyrics} onClose={handleCloseLyricsPopup} />}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Footer;
+

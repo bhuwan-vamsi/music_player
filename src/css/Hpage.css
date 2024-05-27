@@ -195,51 +195,113 @@
   float: left;
   padding:20px 20px;
 }
-.songFooter{
+/* Main.css or your preferred main CSS file */
+
+.songFooter {
   width: 100vw;
-  height:100px;
-  background-color: rgb(0,0,0);
+  height: 15%;
+  background-color: rgb(0, 0, 0);
   position: fixed;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; 
+  grid-template-columns: 1fr 1fr 1fr;
 }
- .footerSongPlayed{
-  color:#abe543;
+
+.footerSongPlayed {
+  color: #abe543;
   position: relative;
 }
-.footerSongPlayed .song{
+
+.footerSongPlayed .song {
   background-color: transparent;
 }
-.footerSongPlayed .song img{
-  width:50px;
+
+.footerSongPlayed .song img {
+  width: 50px;
   height: 50px;
   position: relative;
-  top:20px;
-  left:20px;
+  top: 20px;
+  left: 20px;
   border-radius: 5px;
 }
-.footerSongPlayed .song .songDetails{
+
+.footerSongPlayed .song .songDetails {
   position: relative;
-  top: 0px;
+  top: 0;
   left: 20px;
 }
-.songFooter .songControls{
-  color:#abe543;
+
+.songFooter .songControls {
+  color: #abe543;
   text-align: center;
   position: relative;
-  top:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
-.songFooter .songControls i{
+
+.songFooter .songControls i {
   font-size: 30px;
-  margin-bottom: 30px;
 }
-.songFooter .songLyrics .songLyricsBtn{
-  background-color:#abe543 ;
-  padding: 10px 30px;
+
+.songFooter .rightPart {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+.songFooter .rightPart .songRating {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  font-size: 26px;
+  justify-content: center;
+  align-items: center;
+}
+
+.songFooter .rightPart .songLyrics{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.songFooter .rightPart .songLyrics .songLyricsBtn {
+  background-color: #abe543;
   border-radius: 10px;
-  position: relative;
-  top: 30px;
-  left:130px;
+  padding: 5px 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.Lyrics-pop-up{
+  position: fixed;
+  margin: 20px;
+  top: 0px;
+  right:0px;
+  left: 300px;
+  height: 85vh;
+  border-radius: 10px;
+  background-color: rgb(255,255,255,0.9);
+  overflow: auto;
+}
+.Lyrics-pop-up .close-pop-up{
+  position: fixed;
+  right:20px;
+  top:20px;
+  font-size: 30px;
+  border:none;
+  padding:  5px 10px;
+  color: black;
+  background-color: rgb(255,255,255,0.1);
+  cursor: pointer;
+}
+.Lyrics-pop-up pre{
+  position: absolute;
+  top: 10%;
+  margin: 0% 5%;
+  padding-bottom: 5%;
+  font-size: 25px;
 }

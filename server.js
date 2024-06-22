@@ -422,24 +422,23 @@ app.post('/forgotpassword',async(req,res)=>{
    const email=req.body.email;
    const user = await User.findOne({ email: email })
    if(!user){
-   return  res.status(404).send({message:"user fucked up"});
+   return  res.status(404).send({message:"Email not found"});
    }
    const token =jwt.sign({email},"jwt-security-key",{expiresIn:"1h"})
    var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'bhunvcs@gmail.com',
-      pass: 'jyfrywqftcejhqqv'
+      user: '',
+      pass: '',
     }
   });
   
   var mailOptions = {
-    from: 'bhunvcs@gmail.com',
+    from: '',
     to: `${email}`,
     subject: 'RESET PASSWORD ',
     text: `http://localhost:3000/reset-password/${token}`
   };
-  // console.log(`http://localhost:3000/reset-password/${token}`)
   
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
@@ -448,7 +447,7 @@ app.post('/forgotpassword',async(req,res)=>{
       console.log('Email sent: ' + info.response);
     }
   });
-  res.status(200).send({message:"email sent successfully"})
+  res.status(200).send({message:"Email sent successfully"})
 })
 
 

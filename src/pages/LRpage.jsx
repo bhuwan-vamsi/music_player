@@ -28,7 +28,6 @@ function LRpage() {
         alert('Registration failed');
       }
     } catch (error) {
-      console.log("lol");
       console.error(error);
       alert('Registration failed');
     }
@@ -53,7 +52,6 @@ function LRpage() {
         alert('Signin failed');
       }
     } catch (error) {
-      console.log("lol");
       console.error(error);
       alert('Sign-in failed');
     }

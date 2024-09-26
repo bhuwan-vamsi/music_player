@@ -39,7 +39,7 @@ function Account() {
 
     const handleChangeUsername = () => {
         const updatedUser = { ...user, name: newUsername };
-        fetch('http://localhost:5000/change-username', {
+        fetch('http://localhost:5000/api/users/change-username', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -12,14 +12,13 @@ function LRpage() {
 
   const handleRegister = async (userData) => {
     try {
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch('http://localhost:5000/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-      });
-
+      }); 
       if (response.ok) {
         alert('User registered successfully');
         localStorage.setItem('name', userData.name);
@@ -29,6 +28,7 @@ function LRpage() {
         alert('Registration failed');
       }
     } catch (error) {
+      console.log("lol");
       console.error(error);
       alert('Registration failed');
     }
@@ -36,7 +36,7 @@ function LRpage() {
 
   const handleLogin = async (userData) => {
     try {
-      const response = await fetch('http://localhost:5000/signin', {
+      const response = await fetch('http://localhost:5000/api/users/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -53,6 +53,7 @@ function LRpage() {
         alert('Signin failed');
       }
     } catch (error) {
+      console.log("lol");
       console.error(error);
       alert('Sign-in failed');
     }

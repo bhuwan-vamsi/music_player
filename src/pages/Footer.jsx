@@ -91,6 +91,12 @@ function Footer({ value, title, artist, url, file }) {
       imageUrl: url,
       filename: file,
     }));
+
+    if (audioElement.current) {
+      audioElement.current.src = require(`../songs/${file}`);
+      audioElement.current.load();
+    }
+
   }, [value, title, artist, url, file]);
 
   return (

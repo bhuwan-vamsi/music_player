@@ -71,7 +71,7 @@ function Account() {
         formData.append('clearPlaylists', clearPlaylists);
         formData.append('DOB', editedUser.DOB);
         
-        fetch('http://localhost:5000/update-user-details', {
+        fetch('http://localhost:5000/api/users/update-user-details', {
             method: 'POST',
             body: formData,
         })
@@ -109,7 +109,7 @@ function Account() {
         }
     
         // Make a request to the server to change the password
-        fetch('http://localhost:5000/change-password', {
+        fetch('http://localhost:5000/api/users/change-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

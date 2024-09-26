@@ -30,7 +30,7 @@ function LeftMenu({ songs, onLikedSongsUpdate }) {
   const fetchPlaylists = async () => {
     try {
       const userEmail = localStorage.getItem('email');
-      const response = await fetch(`http://localhost:5000/playlist?userId=${userEmail}`);
+      const response = await fetch(`http://localhost:5000/api/playlists/playlist?userId=${userEmail}`);
       const data = await response.json();
       setPlaylists(data.playlists);
     } catch (error) {
@@ -41,7 +41,7 @@ function LeftMenu({ songs, onLikedSongsUpdate }) {
   const handlePlaylistCreation = async () => {
     try {
       // Call the API to create a new playlist
-      const response = await fetch('http://localhost:5000/create-playlist', {
+      const response = await fetch('http://localhost:5000/api/playlists/create-playlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

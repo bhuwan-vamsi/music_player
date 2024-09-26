@@ -22,7 +22,7 @@ function Footer({ value, title, artist, url, file }) {
     const userEmail = localStorage.getItem('email');
     const songId = currTrack.id;
 
-    fetch('http://localhost:5000/rate-song', {
+    fetch('http://localhost:5000/api/songs/rate-song', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,8 +39,8 @@ function Footer({ value, title, artist, url, file }) {
 
   const handleFetchLyrics = () => {
     const songId = currTrack.id;
-
-    fetch('http://localhost:5000/get-song-lyrics', {
+  
+    fetch('http://localhost:5000/api/songs/get-song-lyrics', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +49,12 @@ function Footer({ value, title, artist, url, file }) {
         songId,
       }),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch lyrics');
+        }
+        return response.json();
+      })
       .then(data => {
         setLyrics(data.songDetails.lyrics || 'Lyrics not available');
         setShowLyricsPopup(true);
@@ -64,8 +69,8 @@ function Footer({ value, title, artist, url, file }) {
   useEffect(() => {
     const userEmail = localStorage.getItem('email');
     const songId = currTrack.id;
-
-    fetch('http://localhost:5000/get-song-rating', {
+  
+    fetch('http://localhost:5000/api/songs/get-song-rating', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,12 +80,25 @@ function Footer({ value, title, artist, url, file }) {
         songId,
       }),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 404) {
+          throw new Error('Song rating not found (404)');
+        } else if (response.status === 201) {
+          setRating(0); // Set song rating to 0 if method is not allowed
+          return; // Exit early, no need to process the response further
+        } else if (!response.ok) {
+          throw new Error('Failed to fetch song rating');
+        }
+        return response.json();
+      })
       .then(data => {
-        setRating(data.rating || 0);
+        if (data) {
+          setRating(data.rating || 0); // Set rating to the returned value or 0
+        }
       })
       .catch(error => console.error('Error fetching song rating:', error));
   }, [currTrack.id]);
+  
 
   useEffect(() => {
     setCurrTrack((prevTrack) => ({

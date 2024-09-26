@@ -7,7 +7,7 @@ function Forgotpassword() {
 
   const handleLogin = async (userData) => {
     try {
-      const response = await fetch('http://localhost:5000/forgotpassword', {
+      const response = await fetch('http://localhost:5000/api/users/forgotpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

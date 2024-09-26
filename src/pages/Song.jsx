@@ -22,7 +22,7 @@ function Song({ value, title, artist, url, liked, onPlay }) {
     setIsLiked(newLikeStatus);
 
     try {
-      const response = await fetch('http://localhost:5000/like-song', {
+      const response = await fetch('http://localhost:5000/api/songs/like-song', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ function Song({ value, title, artist, url, liked, onPlay }) {
     const userEmail = localStorage.getItem('email');
     const songId = value;
     try {
-      const response = await fetch('http://localhost:5000/add-to-playlist', {
+      const response = await fetch('http://localhost:5000/api/playlists/add-to-playlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

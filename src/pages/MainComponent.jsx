@@ -38,7 +38,7 @@ function MainComponent() {
   const fetchLikedSongs = async () => {
     try {
       const userEmail = localStorage.getItem('email');
-      const url = `http://localhost:5000/likedsong?userId=${userEmail}`;
+      const url = `http://localhost:5000/api/songs/likedsong?userId=${userEmail}`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {

@@ -1,18 +1,20 @@
 const Song = require('../models/songModel');
+const User = require('../models/userModel')
 const Like = require('../models/likeModel');
 const Rating = require('../models/ratingModel');
 const { getLyrics, getSong } = require('../helpers/songHelper');
 
 // Like Song
 exports.likeSong = async (req, res) => {
-  const { like, songId, userId } = req.body;
+  const { like, songId, userId } = req.body; // userId is expected to be the user's email
   try {
-      const user = await User.findOne({ email: userId }).exec();
+      const user = await User.findOne({ email: userId }).exec(); // Find user by email
       if (!user) {
           return res.status(404).json({ message: 'User not found' });
       }
-      const userId = user._id;
-      const userLike = await Like.findOne({ userId }).exec();
+
+      const userExtractedId = user._id; // Extract the ObjectId from the user document
+      const userLike = await Like.findOne({ userId: userExtractedId }).exec(); // Use userExtractedId for querying
 
       if (like) {
           if (userLike) {
@@ -21,7 +23,8 @@ exports.likeSong = async (req, res) => {
                   await userLike.save();
               }
           } else {
-              const newLike = new Like({ userId, likedSongs: [songId] });
+              // Create new Like instance and include the user's email
+              const newLike = new Like({ userId: userExtractedId, likedSongs: [songId], email: user.email });
               await newLike.save();
           }
       } else {
@@ -103,17 +106,21 @@ exports.getSongRating = async (req, res) => {
   const { userEmail, songId } = req.body;
   try {
       const userExists = await User.findOne({ email: userEmail }).exec();
+      if (!userExists) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+      
       const userId = userExists._id;
-
       const userRatings = await Rating.findOne({ userId }).exec();
       if (!userRatings) {
-          return res.status(404).json({ error: 'User ratings not found' });
+          return res.status(201).json({ error: 'User ratings not found' });
       }
 
       const songRating = userRatings.ratings.find(r => r.songId === songId);
       if (!songRating) {
-          return res.status(404).json({ error: 'Song rating not found' });
+          return res.status(201).json({ error: 'Song rating not found' });
       }
+
       res.status(200).json({ rating: songRating.rating });
   } catch (error) {
       console.error('Error fetching song rating:', error);

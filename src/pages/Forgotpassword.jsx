@@ -23,7 +23,7 @@ function Forgotpassword() {
       }
     } catch (error) {
       console.error(error);
-      alert('Fuck off');
+      alert('server error');
     }
   };
   

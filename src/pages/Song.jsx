@@ -1,113 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import Popup from './Popup';
 
-function Song({ value, title, artist, url, liked, onPlay }) {
+function Song({ value, title, artist, url, liked, onPlay, onLikeUpdate, onPlaylistUpdate }) {
   const [isLiked, setIsLiked] = useState(liked);
-  const [isInPlaylist, setIsInPlaylist] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     setIsLiked(liked);
   }, [liked]);
 
-  const handlePlaylistButtonClick = () => {
-      setShowPopup((prevShowPopup) => !prevShowPopup);
-  };
-
-    async function handleLikeClick() {
-
+  const handleLikeClick = async () => {
     const userId = localStorage.getItem('email');
-    const songId = value;
     const newLikeStatus = !isLiked;
     setIsLiked(newLikeStatus);
 
     try {
       const response = await fetch('http://localhost:5000/api/songs/like-song', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userId,
-          songId: songId,
-          like: newLikeStatus,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, songId: value, like: newLikeStatus }),
       });
-
-      if (!response.ok) {
-        console.error('Failed to update like status on the server');
-       }
+      if (response.ok) {
+        onLikeUpdate();  // Trigger the like update in MainComponent
+      }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error updating like status:', error);
     }
-  }
+  };
 
   const handlePopupSubmit = async (playlistName) => {
     const userEmail = localStorage.getItem('email');
-    const songId = value;
     try {
       const response = await fetch('http://localhost:5000/api/playlists/add-to-playlist', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userEmail: userEmail,
-          songId: songId,
-          playlistName: playlistName,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userEmail, songId: value, playlistName }),
       });
-  
       if (response.ok) {
-        const data = await response.json();
-        console.log(data.message); // Log the server response message
-        setIsInPlaylist(true);
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 2000);
-      } else {
-        console.error('Failed to add song to playlist');
+        onPlaylistUpdate();  // Trigger playlist update in LeftMenu
       }
     } catch (error) {
-      console.error('Error in handlePopupSubmit:', error);
+      console.error('Error adding song to playlist:', error);
     }
   };
-  
 
   return (
-    <div className="song" style={{ position: 'relative' }} onClick={() => onPlay()}>
+    <div className="song" onClick={() => onPlay()}>
       <img src={require(`../images/${url}`)} alt="" />
       <div className="songDetails">
-        <h2 className="songTitle">{title}</h2>
-        <p className="songArtist">{artist}</p>
+        <h2>{title}</h2>
+        <p>{artist}</p>
       </div>
-      <div className="plbuttons">
-        <div className="playlistButton">
-          <span
-            onClick={handlePlaylistButtonClick}
-            style={{
-              cursor: 'pointer',
-              fontSize: '24px',
-              color: isInPlaylist ? 'blue' : 'white',
-            }}
-          >
-            &#43;
-          </span>
-        </div>
-        <div className="likeButton" style={{ position: 'absolute', bottom: 10, right: 10 }}>
-          <span
-            onClick={handleLikeClick}
-            style={{
-              cursor: 'pointer',
-              fontSize: '24px',
-              color: isLiked ? 'red' : 'white',
-            }}
-          >
-            &#10084;
-          </span>
-        </div>
+      <div>
+        <span onClick={handleLikeClick} style={{ color: isLiked ? 'red' : 'white' }}>
+          &#10084;
+        </span>
+        <span onClick={() => setShowPopup(true)}>&#43;</span>
       </div>
-      <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} onSubmit={handlePopupSubmit} />
+      {showPopup && (
+        <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} onSubmit={handlePopupSubmit} />
+      )}
     </div>
   );
 }

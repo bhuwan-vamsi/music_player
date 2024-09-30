@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import Song from './Song';
 import Footer from './Footer';
 import { music } from '../music.js';
-import { useNavigate } from 'react-router-dom';
-import '../css/Hpage.css';
 import LeftMenu from './LeftMenu.jsx';
 import Search from './Search';
+import { useNavigate } from 'react-router-dom';
 
 function MainComponent() {
 
   const navigate = useNavigate();
+
+  const [songs, setSongs] = useState([]);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [activeSong, setActiveSong] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
-  const [songs, setSongs] = useState([]);
-  const [likedSongsUpdated, setLikedSongsUpdated] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
 
   let time = new Date().getHours();
 
@@ -30,10 +30,10 @@ function MainComponent() {
     headingString = 'Hello! Night Listeners!';
   }
 
-
   useEffect(() => {
     fetchLikedSongs();
-  }, [likedSongsUpdated]);
+    fetchPlaylists();
+  }, []);
 
   const fetchLikedSongs = async () => {
     try {
@@ -46,13 +46,8 @@ function MainComponent() {
         },
       });
       if (response.ok) {
-        if (response.status === 404) {
-          setSongs([]);
-        } else {
-          const data = await response.json();
-          setSongs(data.songs);
-        }
-        setLikedSongsUpdated(!likedSongsUpdated);
+        const data = await response.json();
+        setSongs(data.songs);
       } else {
         console.error('Error fetching liked songs');
       }
@@ -60,6 +55,25 @@ function MainComponent() {
       console.error('Error fetching liked songs:', error);
     }
   };
+
+  const fetchPlaylists = async () => {
+    try {
+      const userEmail = localStorage.getItem('email');
+      const response = await fetch(`http://localhost:5000/api/playlists/playlist?userId=${userEmail}`);
+      const data = await response.json();
+      setPlaylists(data.playlists); // Update playlists state
+    } catch (error) {
+      console.error('Error fetching playlists:', error);
+    }
+  };
+
+  const handleLikeUpdate = () => {
+    fetchLikedSongs();
+  };
+
+  const handlePlaylistUpdate = () => {
+    fetchPlaylists();
+  }
 
   function handleSongClick(songId) {
     setActiveSong(songId === activeSong ? null : songId);
@@ -70,23 +84,18 @@ function MainComponent() {
     setCurrentlyPlaying(playingSong);
   }
 
-  function handleProfileClick() {
+  const handleProfileClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  }
+  };
 
-  function handleDropdownItemClick(item) {
-    console.log('Clicked on:', item);
+  const handleDropdownItemClick = (item) => {
     if (item === 'Item 1') {
       navigate('/account');
-    } 
-    // else if (item === 'Item 2') {
-    //   navigate('/profile');
-    // } 
-    else if (item === 'Item 3') {
+    } else if (item === 'Item 3') {
       navigate('/login');
       localStorage.setItem('email', '');
     }
-  }
+  };
 
   const handleSearchResultClick = (clickedSong) => {
     setCurrentlyPlaying(clickedSong);
@@ -96,7 +105,8 @@ function MainComponent() {
     <div>
       <LeftMenu
         songs={songs}
-        onLikedSongsUpdate={fetchLikedSongs}
+        playlists={playlists}
+        onPlaylistUpdate={fetchPlaylists}
       />
       <div className="mainComponent">
         <div className="mainContainerHeader">
@@ -108,7 +118,6 @@ function MainComponent() {
             <div className="dropdownMenu">
               <ul>
                 <li onClick={() => handleDropdownItemClick('Item 1')}>Account</li>
-                {/* <li onClick={() => handleDropdownItemClick('Item 2')}>Profile</li> */}
                 <li onClick={() => handleDropdownItemClick('Item 3')}>Log Out</li>
               </ul>
             </div>
@@ -124,16 +133,16 @@ function MainComponent() {
                 artist={song.artist}
                 url={song.img}
                 value={song.id}
-                file={song.filename}
                 liked={songs.includes(song.id)}
                 isActive={activeSong === song.id}
                 onSongClick={() => handleSongClick(song.id)}
                 onPlay={() => handlePlay(song.id)}
+                onLikeUpdate={handleLikeUpdate}
+                onPlaylistUpdate={handlePlaylistUpdate}
               />
             ))}
           </div>
         </div>
-        {/* Render Footer only when a song is actively playing */}
         {currentlyPlaying && (
           <Footer
             value={currentlyPlaying.id}
